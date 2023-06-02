@@ -1,20 +1,23 @@
 #ifndef MODULO_COLA_H
 #define MODULO_COLA_H
 
+#include <stdbool.h>
 #include "modulo_ticket.h"
 
-typedef struct Nodo {
-    Ticket ticket;
-    struct Nodo* next;
-} Nodo;
-
 typedef struct {
-    Nodo* front;
-    Nodo* rear;
+    Ticket* queue;
+    size_t front;
+    size_t back;
+    size_t len;
+    size_t capacity;
 } Cola;
 
-Cola* crear_cola();
-void encolar(Cola* c, Ticket t);
-Ticket* desencolar(Cola* c);
+Cola* Queue_New(size_t capacity);
+void Queue_Delete(Cola** c);
+void Queue_Enqueue(Cola* c, Ticket t);
+Ticket* Queue_Dequeue(Cola* c);
+size_t Queue_Len(Cola* c);
+bool Queue_IsEmpty(Cola* c);
+bool Queue_IsFull(Cola* c);
 
 #endif //MODULO_COLA_H

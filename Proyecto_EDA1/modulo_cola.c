@@ -1,32 +1,59 @@
 #include <stdlib.h>
+#include <assert.h>
+#include <stdbool.h>
 #include "modulo_cola.h"
 
-Cola* crear_cola() {
+Cola* Queue_New(size_t capacity) {
   Cola* c = malloc(sizeof(Cola));
-  c->front = c->rear = NULL;
+
+  if(c != NULL) {
+    c->queue = malloc(sizeof(Ticket) * capacity);
+
+    if(c->queue != NULL) {
+      c->capacity = capacity;
+      c->front = 0;
+      c->back = 0;
+      c->len = 0;
+    } else {
+      free(c);
+      c = NULL;
+    }
+  }
+
   return c;
 }
 
-void encolar(Cola* c, Ticket t) {
-  Nodo* n = malloc(sizeof(Nodo));
-  n->ticket = t;
-  n->next = NULL;
-  if(c->rear == NULL) {
-    c->front = c->rear = n;
-    return;
-  }
-  c->rear->next = n;
-  c->rear = n;
+void Queue_Delete(Cola** c) {
+  assert(*c);
+  free((*c)->queue);
+  free(*c);
+  *c = NULL;
 }
 
-Ticket* desencolar(Cola* c) {
-  if(c->front == NULL)
+void Queue_Enqueue(Cola* c, Ticket t) {
+  assert(c->len < c->capacity);
+  c->queue[c->back % c->capacity] = t;
+  ++c->back;
+  ++c->len;
+}
+
+Ticket* Queue_Dequeue(Cola* c) {
+  if(c->len == 0)
     return NULL;
-  Nodo* n = c->front;
-  Ticket* t = &n->ticket;
-  c->front = c->front->next;
-  if(c->front == NULL)
-    c->rear = NULL;
-  free(n);
+  Ticket* t = &c->queue[c->front % c->capacity];
+  ++c->front;
+  --c->len;
   return t;
+}
+
+size_t Queue_Len(Cola* c) {
+  return c->len;
+}
+
+bool Queue_IsEmpty(Cola* c) {
+  return c->len == 0;
+}
+
+bool Queue_IsFull(Cola* c) {
+  return c->len == c->capacity;
 }
