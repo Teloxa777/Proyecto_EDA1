@@ -7,7 +7,7 @@ Cola* Queue_New(size_t capacity) {
   Cola* c = malloc(sizeof(Cola));
 
   if(c != NULL) {
-    c->queue = malloc(sizeof(Ticket) * capacity);
+    c->queue = malloc(sizeof(Sala*) * capacity);
 
     if(c->queue != NULL) {
       c->capacity = capacity;
@@ -30,20 +30,20 @@ void Queue_Delete(Cola** c) {
   *c = NULL;
 }
 
-void Queue_Enqueue(Cola* c, Ticket t) {
+void Queue_Enqueue(Cola* c, Sala* s) {
   assert(c->len < c->capacity);
-  c->queue[c->back % c->capacity] = t;
+  c->queue[c->back % c->capacity] = s;
   ++c->back;
   ++c->len;
 }
 
-Ticket* Queue_Dequeue(Cola* c) {
+Sala* Queue_Dequeue(Cola* c) {
   if(c->len == 0)
     return NULL;
-  Ticket* t = &c->queue[c->front % c->capacity];
+  Sala* s = c->queue[c->front % c->capacity];
   ++c->front;
   --c->len;
-  return t;
+  return s;
 }
 
 size_t Queue_Len(Cola* c) {

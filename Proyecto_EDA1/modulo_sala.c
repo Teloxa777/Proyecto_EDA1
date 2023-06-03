@@ -4,10 +4,10 @@
 Sala* crear_sala(int id) {
   Sala* sala = malloc(sizeof(Sala));
   sala->id = id;
-  // Inicializar asientos a 1 (disponibles)
+  // Inicializar asientos a NULL (disponibles)
   for (int i = 0; i < MAX_ASIENTOS; i++) {
     for (int j = 0; j < MAX_ASIENTOS; j++) {
-      sala->asientos[i][j] = 1;
+      sala->asientos[i][j] = NULL;
     }
   }
   return sala;

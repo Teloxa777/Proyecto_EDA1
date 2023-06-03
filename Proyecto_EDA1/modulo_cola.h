@@ -2,10 +2,10 @@
 #define MODULO_COLA_H
 
 #include <stdbool.h>
-#include "modulo_ticket.h"
+#include "modulo_sala.h"
 
 typedef struct {
-    Ticket* queue;
+    Sala** queue;
     size_t front;
     size_t back;
     size_t len;
@@ -14,8 +14,8 @@ typedef struct {
 
 Cola* Queue_New(size_t capacity);
 void Queue_Delete(Cola** c);
-void Queue_Enqueue(Cola* c, Ticket t);
-Ticket* Queue_Dequeue(Cola* c);
+void Queue_Enqueue(Cola* c, Sala* s);
+Sala* Queue_Dequeue(Cola* c);
 size_t Queue_Len(Cola* c);
 bool Queue_IsEmpty(Cola* c);
 bool Queue_IsFull(Cola* c);
