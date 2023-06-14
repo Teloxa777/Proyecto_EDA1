@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stddef.h> 
-
+//hoola
 typedef struct Cinema 
 {
     Room* room;
