@@ -5,11 +5,15 @@
 #include <stdio.h>
 
 #define MAX_FILM_SIZE 50
+#define NUM_OF_ROW 2
+#define NUM_OF_SEATS 4
 
 int main() 
 {
-    const int NUM_OF_ROWS = 2;
-    const int NUM_OF_SEATS = 4;
+    int table[ MAX_DENOMS ][ MAX_CHANGE ]; // MAX_DENOMS = 5 ; MAX_CAMBIO = 999+1
+    Int denom[ MAX_DENOMS ] = { 1, 2, 5, 10, 20 };
+    Coin results [ MAX_CHANGE ];
+    init_table(table[][MAX_CHANGE]); // Inicializar la tabla del cambio 
 
     // Creamos una lista de cines
     Cinemas* cinemas = Cinemas_New();

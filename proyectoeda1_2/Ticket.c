@@ -107,3 +107,84 @@ void Ticket_Print(const Ticket* ticket)
         printf("---------------\n");
     }
 }
+
+
+void init_table(int table[][MAX_CHANGE])
+{
+    for( size_t i = 0; i < MAX_DENOMS; ++i)
+    {
+        for( size_t j = 0; i < MAX_CHANGE; ++j)
+        {
+            table[i][j] = -1;
+            if( table[i][0] == -1)
+            {
+                table[i][0] = 0;
+            }
+        }
+    }
+}
+
+int change_table(int i, int j, int denom[], int table[][MAX_CHANGE])
+{
+    if(i < 0)
+    {
+        return INFINITE;
+    }
+
+    if(table[i][j] != -1)
+    {
+        return table[i][j];
+    }
+
+    int x = change_table( i - 1, j, denom, table );
+
+    int y;
+    if( j - denom[i] < 0)
+    {
+        y = INFINITE;
+    }
+    else
+    {
+        y = 1 + change_table( i, j - denom[i], denom, table );
+    }
+
+    table[i][j] = MIN( x, y );
+    return table[i][j];
+}
+
+void change(int change, int table[][MAX_CHANGE], Coin results[], int denom[MAX_DENOMS])
+{
+    int tmp = change;
+
+    for( int i = 0; i < MAX_DENOMS; ++i)
+    {
+        results[i].denom = denom[i];
+        results[i].quantity = 0;
+    }
+
+    int i = MAX_DENOMS - 1;
+    int j = tmp;
+
+    while( j > 0 && i >= 0 )
+    {
+        if( i == 0 && j < denom[i])
+        {
+            results[i].quantity = -1;
+            i--;
+        }
+        else if( i == 0 )
+        {
+            results[i].quantity = j;
+            j -= denom[i];
+            i--;
+        }
+        else if( j < denom[i] )
+        {
+            i--;
+        }
+        else
+        {
+            
+        }
+    }
+}
