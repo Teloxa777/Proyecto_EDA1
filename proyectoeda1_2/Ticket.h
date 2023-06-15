@@ -36,6 +36,6 @@ void Ticket_Print(const Ticket* ticket);
 
 void init_table(int table[][MAX_CHANGE]); // Inicializa la tabla
 int change_table(int i, int j, int denom[], int table[][MAX_CHANGE]); //Rellena la tabla de valores
-void change(int change, int table[][MAX_CHANGE], Coin results[], int denom[MAX_DENOMS]); // Algoritmo PD que devuelve el cambio, la cantidad y el valor en monedas
+void return_change(int change, int table[][MAX_CHANGE], Coin results[], int denom[MAX_DENOMS]); // Algoritmo PD que devuelve el cambio, la cantidad y el valor en monedas
 
 #endif // TICKET_H

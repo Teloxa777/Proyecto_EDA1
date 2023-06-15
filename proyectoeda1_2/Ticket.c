@@ -108,12 +108,16 @@ void Ticket_Print(const Ticket* ticket)
     }
 }
 
-
+/**
+ * @brief Inicializa la tabla de cambio con valores predeterminados.
+ *
+ * @param table La tabla de cambio a inicializar.
+ */
 void init_table(int table[][MAX_CHANGE])
 {
     for( size_t i = 0; i < MAX_DENOMS; ++i)
     {
-        for( size_t j = 0; i < MAX_CHANGE; ++j)
+        for( size_t j = 0; j < MAX_CHANGE; ++j)
         {
             table[i][j] = -1;
             if( table[i][0] == -1)
@@ -123,7 +127,15 @@ void init_table(int table[][MAX_CHANGE])
         }
     }
 }
-
+/**
+ * @brief Calcula la cantidad mínima de monedas necesarias para el cambio.
+ *
+ * @param i El índice actual de la denominación.
+ * @param j El cambio restante.
+ * @param denom El arreglo de denominaciones de monedas.
+ * @param table La tabla de cambio.
+ * @return int La cantidad mínima de monedas necesarias para el cambio.
+ */
 int change_table(int i, int j, int denom[], int table[][MAX_CHANGE])
 {
     if(i < 0)
@@ -151,40 +163,52 @@ int change_table(int i, int j, int denom[], int table[][MAX_CHANGE])
     table[i][j] = MIN( x, y );
     return table[i][j];
 }
-
-void change(int change, int table[][MAX_CHANGE], Coin results[], int denom[MAX_DENOMS])
+/**
+ * @brief Calcula el cambio a partir de la tabla de cambio y las denominaciones.
+ *
+ * @param change El cambio total.
+ * @param table La tabla de cambio.
+ * @param results El arreglo de monedas resultantes.
+ * @param denom El arreglo de denominaciones de monedas.
+ */
+void return_change(int change, int table[][MAX_CHANGE], Coin results[], int denom[MAX_DENOMS])
 {
     int tmp = change;
-
-    for( int i = 0; i < MAX_DENOMS; ++i)
+    
+    for (int i = 0; i < MAX_DENOMS; i++) 
     {
-        results[i].denom = denom[i];
-        results[i].quantity = 0;
+        results[ i ].denom = denom[ i ];
+        results[ i ].quantity = 0;
     }
-
+    
     int i = MAX_DENOMS - 1;
     int j = tmp;
-
-    while( j > 0 && i >= 0 )
+    
+    while (j > 0 && i >= 0) 
     {
-        if( i == 0 && j < denom[i])
+        if (i == 0 && j < denom[ i ]) 
         {
-            results[i].quantity = -1;
+            results[ i ].quantity = -1;
             i--;
-        }
-        else if( i == 0 )
+        } 
+        else if (i == 0) 
         {
-            results[i].quantity = j;
-            j -= denom[i];
+            results[ i ].quantity = j;
+            j -= denom[ i ];
             i--;
-        }
-        else if( j < denom[i] )
+        } 
+        else if (j < denom[ i ]) 
         {
             i--;
-        }
-        else
+        } 
+        else if (table[ i ][ j ] == table[ i - 1 ][ j ]) 
         {
-            
+            i--;
+        } 
+        else 
+        {
+            results[ i ].quantity++;
+            j -= denom[ i ];
         }
     }
 }
