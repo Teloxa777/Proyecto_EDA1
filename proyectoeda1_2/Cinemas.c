@@ -1,5 +1,5 @@
 #include "Cinemas.h"
-//hola
+//hola buenas tardes
 /**
  * @brief Crea un nuevo objeto Cinema.
  * 
