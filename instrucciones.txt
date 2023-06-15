@@ -1,0 +1,1 @@
+gcc -Wall -std=c99 -osalida.out main.c Cinemas.c Room.c Ticket.c Seat.c
