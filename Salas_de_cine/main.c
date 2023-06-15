@@ -73,7 +73,7 @@ int main()
                 printf("Seleccione una sala de cine (1 o 2): ");
                 scanf("%d", &cinemaChoice);
                 Room* selectedRoom = (cinemaChoice == 1) ? room1 : room2;
-                printf("Has seleccionado la sala con la pelicula: %s\n", Room_GetFilm(selectedRoom));
+                printf("Has seleccionado la sala con la película: %s\n", Room_GetFilm(selectedRoom));
 
                 // Mostrar la sala y asientos disponibles
                 Seat_Print(selectedRoom->first_row);
@@ -83,7 +83,7 @@ int main()
                 scanf("%d", &seatRow);
                 printf("Ingrese la columna del asiento: ");
                 scanf("%d", &seatColumn);
-                printf("El precio del boleto es: $%d\n¿Con cuanto dinero desea pagar? (No se aceptan centavos)\n$", TICKET_PRICE);
+                printf("El precio del ticket es: $%d\n¿Con cuánto dinero desea pagar? (No se aceptan centavos)\n$", TICKET_PRICE);
                 scanf("%d", &pay);
                 if (pay < TICKET_PRICE) 
                 {
